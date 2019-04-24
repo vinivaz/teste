@@ -1,0 +1,82 @@
+create table GERENTE(
+	GERENTE_ID int not null auto_increment primary key,
+	nome varchar(100) not null,
+	dt_nas datetime not null,
+	endereco varchar(150) null,
+	complementoend varchar(150) null,
+	CPF varchar(11) not null,
+	email varchar(100) not null unique,
+	telefone varchar(10) not null,
+	sexo varchar(1) not null,
+	login varchar(10) not null unique,
+	senha varchar(6) not null
+);
+insert into GERENTE(nome, dt_nas, endereco, complementoend, CPF, email, telefone, sexo, login, senha) values ('Gerente Inicial 01', '2001-01-01', 'Rua gerente 01, 01', 'complemento gerente 01', '11122233344', 'gerente01@gerente.com', '12345678', 'M', 'ger1', 'ger1');
+insert into GERENTE(nome, dt_nas, endereco, complementoend, CPF, email, telefone, sexo, login, senha) values ('Gerente Inicial 02', '2002-02-02', 'Rua gerente 02, 02', 'complemento gerente 02', '11122233344', 'gerente02@gerente.com', '12345678', 'M', 'ger2', 'ger2');
+insert into GERENTE(nome, dt_nas, endereco, complementoend, CPF, email, telefone, sexo, login, senha) values ('Gerente Inicial 03', '2003-03-03', 'Rua gerente 03, 03', 'complemento gerente 03', '11122233344', 'gerente03@gerente.com', '12345678', 'M', 'ger3', 'ger3');
+
+create table FUNCIONARIO(
+	FUNCIONARIO_ID int not null auto_increment primary key,
+	nome varchar(100) not null,
+	dt_nas datetime not null,
+	endereco varchar(150) null,
+	complementoend varchar(150) null,
+	CPF varchar(11) not null,
+	email varchar(100) not null unique,
+	telefone varchar(10) not null,
+	sexo varchar(1) not null,
+	login varchar(10) not null unique,
+	senha varchar(6) not null
+);
+insert into FUNCIONARIO(nome, dt_nas, endereco, complementoend, CPF, email, telefone, sexo, login, senha) values ('Funcionário Inicial 01', '2001-01-01', 'Rua funcionário 01, 01', 'complemento funcionário 01', '11122233344', 'funcionario01@funcionario.com', '12345678', 'M', 'fun1', 'fun1');
+insert into FUNCIONARIO(nome, dt_nas, endereco, complementoend, CPF, email, telefone, sexo, login, senha) values ('Funcionário Inicial 02', '2002-02-02', 'Rua funcionário 02, 02', 'complemento funcionário 02', '11122233344', 'funcionario02@funcionario.com', '12345678', 'M', 'fun2', 'fun2');
+insert into FUNCIONARIO(nome, dt_nas, endereco, complementoend, CPF, email, telefone, sexo, login, senha) values ('Funcionário Inicial 03', '2003-03-03', 'Rua funcionário 03, 03', 'complemento funcionário 03', '11122233344', 'funcionario03@funcionario.com', '12345678', 'M', 'fun3', 'fun3');
+
+create table CLIENTE(
+	CLIENTE_ID int not null auto_increment primary key,
+	nome varchar(100) not null,
+	dt_nas datetime not null,
+	endereco varchar(150) null,
+	complementoend varchar(150) null,
+	CPF varchar(11) not null,
+	email varchar(100) not null unique,
+	telefone varchar(10) not null,
+	sexo varchar(1) not null
+);
+insert into CLIENTE(nome, dt_nas, endereco, complementoend, CPF, email, telefone, sexo) values ('Cliente Inicial 01', '2001-01-01', 'Rua cliente 01, 01', 'complemento cliente 01', '11122233344', 'cliente01@cliente.com', '12345678', 'M');
+insert into CLIENTE(nome, dt_nas, endereco, complementoend, CPF, email, telefone, sexo) values ('Cliente Inicial 02', '2002-02-02', 'Rua cliente 02, 02', 'complemento cliente 02', '22233344455', 'cliente02@cliente.com', '23456789', 'F');
+insert into CLIENTE(nome, dt_nas, endereco, complementoend, CPF, email, telefone, sexo) values ('Cliente Inicial 03', '2003-03-03', 'Rua cliente 03, 03', 'complemento cliente 03', '33344455566', 'cliente03@cliente.com', '34567890', 'F');
+
+create table VEICULO(
+	VEICULO_ID int not null auto_increment primary key,
+	codigo varchar(10) unique not null,
+	modelo varchar(200) unique not null,
+	fabricante varchar(200) unique not null,
+	cor varchar(100) unique not null,
+	ano int not null,
+	chassi varchar(100) unique not null,
+	placa varchar(100) unique not null,
+	descricao text null,
+	preco float not null default 0,
+	promocao bool not null default 0,
+	preco_promo float not null default 0,
+	obs_promo text null
+
+);
+insert into VEICULO(codigo, modelo, fabricante, cor, ano, chassi, placa, descricao) values ('V01', 'Veiculo modelo 01', 'Fabricante 01', 'preto', '2018', 'chassi01', 'placa01', 'modelo 01');
+insert into VEICULO(codigo, modelo, fabricante, cor, ano, chassi, placa, descricao) values ('V02', 'Veiculo modelo 02', 'Fabricante 02', 'azul', '2018', 'chassi02', 'placa02', 'modelo 02');
+insert into VEICULO(codigo, modelo, fabricante, cor, ano, chassi, placa, descricao) values ('V03', 'Veiculo modelo 03', 'Fabricante 03', 'verdde', '2018', 'chassi03', 'placa03', 'modelo 03');
+
+create table COMPRA(
+	COMPRA_ID int not null auto_increment primary key,
+	funcionario_id int not null references FUNCIONARIO(FUNCIONARIO_ID),
+	cliente_id int not null references CLIENTE(CLIENTE_ID),
+	veiculo_id int not null references VEICULO(VEICULO_ID),
+	data datetime not null,
+	valor float null default 0.0
+);
+insert into COMPRA(funcionario_id, cliente_id, veiculo_id, data) values (2, 1, 3, '2018-01-29 11:43');
+insert into COMPRA(funcionario_id, cliente_id, veiculo_id, data) values (2, 1, 2, '2018-02-12 15:24');
+insert into COMPRA(funcionario_id, cliente_id, veiculo_id, data) values (3, 2, 2, '2018-02-27 17:41');
+insert into COMPRA(funcionario_id, cliente_id, veiculo_id, data) values (1, 3, 3, '2018-03-05 18:01');
+insert into COMPRA(funcionario_id, cliente_id, veiculo_id, data) values (3, 3, 1, '2018-03-13 17:53');
